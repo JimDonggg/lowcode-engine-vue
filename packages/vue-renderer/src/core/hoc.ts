@@ -14,8 +14,9 @@ import {
 } from 'vue';
 import { useRendererContext } from '../context';
 import { rendererProps } from './base';
-import { useRenderer } from './use';
-import { parseSchema } from '../utils';
+import { PropSchemaMap, SlotSchemaMap, useRenderer } from './use';
+import { ensureArray, parseSchema } from '../utils';
+import { SlotNode } from '@alilc/lowcode-designer';
 
 export const Hoc = defineComponent({
   name: 'Hoc',
@@ -27,9 +28,8 @@ export const Hoc = defineComponent({
     },
   },
   setup(props) {
-    const { scope, components, getNode, triggerCompGetCtx } = useRendererContext();
-    const { buildSchema, buildProps, buildLoop, createSlot, createChildren } =
-      useRenderer(props);
+    const { components, getNode, triggerCompGetCtx } = useRendererContext();
+    const { buildSchema, buildProps, buildSlost, buildLoop } = useRenderer(props);
     const id = props.id || props.schema.id;
 
     const disposeFunctions: Array<CallableFunction | undefined> = [];
@@ -39,8 +39,8 @@ export const Hoc = defineComponent({
     const condition = ref<unknown>(props.schema.condition ?? true);
 
     const { loop, loopArgs, updateLoop, updateLoopArg } = buildLoop(props.schema);
-    const compProps: any = reactive({});
-    const compSlots: any = reactive({});
+    const compProps: PropSchemaMap = reactive({});
+    const compSlots: SlotSchemaMap = reactive({});
     const result = buildSchema();
     Object.assign(compProps, result.props);
     Object.assign(compSlots, result.slots);
@@ -61,7 +61,7 @@ export const Hoc = defineComponent({
       if (hidden.value) return false;
       const { value: showCondition } = condition;
       if (typeof showCondition === 'boolean') return showCondition;
-      return parseSchema(showCondition, scope);
+      return parseSchema(showCondition, props.scope);
     });
 
     const node = id && getNode(id);
@@ -84,10 +84,12 @@ export const Hoc = defineComponent({
             updateLoopArg(newValue, key);
           } else if (key === 'children') {
             // 默认插槽更新
-            compSlots.default = createChildren(newValue);
+            compSlots.default = ensureArray(newValue);
           } else if (isJSSlot(newValue)) {
             // 具名插槽更新
-            compSlots[key] = createSlot(prop.slotNode);
+            const slotNode: SlotNode = prop.slotNode;
+            const schema = slotNode.export(TransformStage.Render);
+            compSlots[key] = ensureArray(schema);
           } else if (!newValue && isJSSlot(oldValue)) {
             // 具名插槽移除
             delete compSlots[key];
@@ -100,7 +102,7 @@ export const Hoc = defineComponent({
       disposeFunctions.push(
         node.onChildrenChange(() => {
           const schema = node.export(TransformStage.Render);
-          compSlots.default = createChildren(schema.children);
+          compSlots.default = ensureArray(schema.children);
         })
       );
       disposeFunctions.push(
@@ -122,6 +124,7 @@ export const Hoc = defineComponent({
       mergedComp,
       mergedShow,
       getRef,
+      buildSlost,
       buildProps,
     };
   },
@@ -134,23 +137,29 @@ export const Hoc = defineComponent({
       mergedComp,
       mergedShow,
       getRef,
+      buildSlost,
       buildProps,
     } = this;
     if (!mergedComp || !mergedShow) return null;
     if (!loop) {
-      return h(mergedComp, { ...buildProps(compProps), ref: getRef }, { ...compSlots });
+      return h(
+        mergedComp,
+        { ...buildProps(compProps), ref: getRef },
+        buildSlost(compSlots)
+      );
     }
 
     return h(
       Fragment,
       loop.map((item, index) => {
+        const blockScope = { [loopArgs[0]]: item, [loopArgs[1]]: index };
         return h(
           mergedComp,
           {
-            ...buildProps(compProps, { [loopArgs[0]]: item, [loopArgs[1]]: index }),
+            ...buildProps(compProps, blockScope),
             ref: getRef,
           },
-          { ...compSlots }
+          buildSlost(compSlots, blockScope)
         );
       })
     );

@@ -121,6 +121,7 @@ const Renderer = defineComponent({
       type: Object as PropType<Record<string, Component>>,
       required: true,
     },
+    /** 设计模式，可选值：live、design */
     designMode: {
       type: String as PropType<'live' | 'design'>,
       default: 'live',
@@ -139,7 +140,6 @@ const Renderer = defineComponent({
       type: Object as PropType<Record<string, any>>,
       default: () => ({}),
     },
-    /** 设计模式，可选值：live、design */
     getNode: {
       type: Function as PropType<(id: string) => Node<NodeSchema> | null>,
       default: undefined,
@@ -200,9 +200,10 @@ const Renderer = defineComponent({
       }
       return Comp
         ? h(Comp, {
+            id: schema.id,
             key: schema.__ctx && `${schema.__ctx.lceKey}_${schema.__ctx.idx || '0'}`,
             schema,
-            id: schema.id,
+            scope,
           } as any)
         : null;
     };

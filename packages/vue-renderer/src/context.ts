@@ -3,7 +3,6 @@ import { Node } from '@alilc/lowcode-designer';
 import { Component, inject, InjectionKey } from 'vue';
 
 export interface RendererContext {
-  readonly scope: any;
   readonly components: Record<string, Component>;
   readonly designMode: 'live' | 'design' | undefined;
   getNode(id: string): Node<NodeSchema> | null | undefined;
