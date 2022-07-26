@@ -54,7 +54,6 @@ export class Response<T = unknown> {
 
 export async function request(options: RequestOptions): Promise<Response> {
   const { method, uri, timeout, headers, params } = options;
-
   let url: string;
   const fetchOptions: RequestInit = {
     method,
@@ -83,7 +82,6 @@ export async function request(options: RequestOptions): Promise<Response> {
     fetchOptions.signal = controller.signal;
     setTimeout(() => controller.abort(), timeout);
   }
-
   const res = await fetch(url, fetchOptions);
   const code = res.status;
 

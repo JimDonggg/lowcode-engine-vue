@@ -24,10 +24,10 @@ export const Live = defineComponent({
   render() {
     const { show, comp, loop, loopArgs, compProps, compSlots, buildProps, buildSlots } =
       this;
-
     if (!show) return null;
     if (!comp) return h('div', 'component not found');
     if (!loop) {
+      console.log('compSlots', compSlots);
       return h(comp, buildProps(compProps), buildSlots(compSlots));
     }
 
