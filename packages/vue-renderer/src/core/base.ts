@@ -2,7 +2,7 @@ import { NodeSchema, RootSchema } from '@alilc/lowcode-types';
 import { Node } from '@alilc/lowcode-designer';
 import { Component, ComponentPublicInstance, PropType, VNodeProps } from 'vue';
 import { BlockScope, I18nMessages, RuntimeScope } from '../utils';
-
+import { HandleFetch } from '../data-source/request';
 export const rendererProps = {
   __scope: {
     type: Object as PropType<BlockScope>,
@@ -38,6 +38,10 @@ export const rendererProps = {
     >,
     required: true,
   },
+  __handleFetch: {
+    type: Object as PropType<HandleFetch>,
+    default: () => ({}),
+  },
 } as const;
 
 export interface RendererProps {
@@ -49,6 +53,7 @@ export interface RendererProps {
   __components: Record<string, Component>;
   __getNode: (id: string) => Node<NodeSchema> | null;
   __triggerCompGetCtx: (schema: NodeSchema, ref: ComponentPublicInstance) => void;
+  __handleFetch: HandleFetch;
 }
 
 export const baseRendererPropKeys = Object.keys(rendererProps) as (keyof RendererProps)[];

@@ -13,7 +13,9 @@ export interface SimulatorViewLayout {
   componentName?: string;
   props?: Record<string, unknown>;
 }
-
+export interface HandleFetch {
+  baseUrl?: string;
+}
 export interface VueSimulatorRenderer extends BuiltinSimulatorRenderer {
   app: App;
   config: Config;
@@ -31,6 +33,7 @@ export interface VueSimulatorRenderer extends BuiltinSimulatorRenderer {
   dispose(): void;
   rerender(): void;
   getCurrentDocument(): DocumentInstance | undefined;
+  handleFetch: HandleFetch;
 }
 
 export interface DocumentInstance {

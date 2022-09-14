@@ -1,5 +1,6 @@
 import { isString } from 'lodash-es';
-import { RequestOptions } from './interface';
+import buildFullPath from '../utils/buildFullPath';
+import { RequestOptions, HandleFetch } from './interface';
 
 function serializeParams(obj: Record<string, unknown>) {
   const result: string[] = [];
@@ -52,9 +53,14 @@ export class Response<T = unknown> {
   constructor(public code: number, public data: T) {}
 }
 
-export async function request(options: RequestOptions): Promise<Response> {
+export async function request(
+  options: RequestOptions,
+  handleFetch: HandleFetch
+): Promise<Response> {
+  const { baseUrl, onBeforeRequest } = handleFetch;
+  onBeforeRequest && (options = onBeforeRequest(options));
   const { method, uri, timeout, headers, params } = options;
-  let url: string;
+  let url: string = buildFullPath(baseUrl, uri);
   const fetchOptions: RequestInit = {
     method,
     headers: {
@@ -64,9 +70,8 @@ export async function request(options: RequestOptions): Promise<Response> {
   };
 
   if (method === 'GET' || method === 'DELETE' || method === 'OPTIONS') {
-    url = buildUrl(uri, params);
+    url = buildUrl(url, params);
   } else {
-    url = uri;
     if (params instanceof FormData) {
       // 处理form表单类型（文件上传）
       fetchOptions.body = params;
@@ -76,7 +81,6 @@ export async function request(options: RequestOptions): Promise<Response> {
         : serializeParams(params);
     }
   }
-
   if (timeout) {
     const controller = new AbortController();
     fetchOptions.signal = controller.signal;

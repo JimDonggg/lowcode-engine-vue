@@ -8,6 +8,11 @@ export interface RequestOptions {
   responseType?: string;
 }
 
+export interface HandleFetch {
+  baseUrl?: string;
+  onBeforeRequest: (options: RequestOptions) => RequestOptions;
+}
+
 export enum DataSourceStatus {
   /** 初始状态，尚未加载 */
   Initial = 'init',

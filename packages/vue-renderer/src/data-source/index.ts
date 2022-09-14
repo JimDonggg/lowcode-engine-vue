@@ -3,7 +3,7 @@ import { computed, reactive, ref, shallowRef } from 'vue';
 import { request, Response } from './request';
 import { DataSourceStatus } from './interface';
 import { isObject, parseSchema, RuntimeScope } from '../utils';
-
+import { HandleFetch } from './request';
 const same = <T>(v: T) => v;
 const noop = () => void 0;
 const alwaysTrue = () => true;
@@ -20,7 +20,8 @@ export interface DataSource<T = unknown> {
 export function createDataSource(
   config: InterpretDataSourceConfig,
   request: CallableFunction | null,
-  scope: RuntimeScope
+  scope: RuntimeScope,
+  handleFetch: HandleFetch
 ): DataSource {
   const data = shallowRef<unknown>();
   const error = shallowRef<unknown>();
@@ -70,7 +71,7 @@ export function createDataSource(
         }
       }
       status.value = DataSourceStatus.Loading;
-      const res = await request(hooks.willFetch(fetchOptions));
+      const res = await request(hooks.willFetch(fetchOptions), handleFetch);
       status.value = DataSourceStatus.Loaded;
       const _data = (data.value = hooks.dataHandler(res));
       return _data && (scope[id] = _data);
@@ -94,10 +95,16 @@ export function createDataSource(
 
 export function createDataSourceManager(
   { list, dataHandler }: InterpretDataSource,
-  scope: RuntimeScope
+  scope: RuntimeScope,
+  handleFetch: HandleFetch
 ) {
   const dataSourceMap = list.reduce((prev, next) => {
-    prev[next.id] = createDataSource({ dataHandler, ...next }, request, scope);
+    prev[next.id] = createDataSource(
+      { dataHandler, ...next },
+      request,
+      scope,
+      handleFetch
+    );
     return prev;
   }, {} as Record<string, DataSource>);
 

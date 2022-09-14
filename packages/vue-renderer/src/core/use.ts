@@ -786,7 +786,8 @@ export function useRootScope(rendererProps: RendererProps) {
   // 处理 dataSource
   const { dataSourceMap, reloadDataSource } = createDataSourceManager(
     schema.dataSource ?? { list: [], dataHandler: undefined },
-    scope
+    scope,
+    rendererProps.__handleFetch
   );
   addToScope({ dataSourceMap, reloadDataSource });
   reloadDataSource();

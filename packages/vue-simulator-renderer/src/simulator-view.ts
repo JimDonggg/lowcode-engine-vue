@@ -54,7 +54,7 @@ export const Renderer = defineComponent({
   render() {
     const { documentInstance, simulator } = this;
     const { schema } = documentInstance;
-    const { designMode, device, locale, components } = simulator;
+    const { designMode, device, locale, components, handleFetch } = simulator;
 
     if (!simulator.autoRender) return null;
 
@@ -67,6 +67,7 @@ export const Renderer = defineComponent({
       device: device,
       getNode: (id) => documentInstance.getNode(id),
       onCompGetCtx: (schema, ref) => documentInstance.mountInstance(schema.id!, ref),
+      handleFetch: handleFetch,
     });
   },
 });

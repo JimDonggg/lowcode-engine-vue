@@ -11,6 +11,7 @@ import {
 import config from './config';
 import { RENDERER_COMPS } from './renderers';
 import { I18nMessages, BlockScope } from './utils';
+import { HandleFetch } from './data-source/request';
 
 interface RendererProps {
   scope?: BlockScope;
@@ -22,6 +23,7 @@ interface RendererProps {
   messages?: I18nMessages;
   getNode?: (id: string) => Node<NodeSchema> | null;
   onCompGetCtx?: (schema: NodeSchema, ref: ComponentPublicInstance) => void;
+  handleFetch?: HandleFetch;
 }
 
 const Renderer = defineComponent({
@@ -68,6 +70,10 @@ const Renderer = defineComponent({
       >,
       default: undefined,
     },
+    handleFetch: {
+      type: Object as PropType<HandleFetch>,
+      default: () => ({}),
+    },
   },
   setup(props: RendererProps) {
     const triggerCompGetCtx = (schema: NodeSchema, val: ComponentPublicInstance) => {
@@ -83,7 +89,7 @@ const Renderer = defineComponent({
 
     const renderContent = () => {
       const { value: components } = componentsRef;
-      const { schema, scope, locale, messages, designMode } = props;
+      const { schema, scope, locale, messages, designMode, handleFetch } = props;
       if (!schema) return null;
 
       const { componentName } = schema!;
@@ -105,6 +111,7 @@ const Renderer = defineComponent({
             __designMode: designMode,
             __getNode: getNode,
             __triggerCompGetCtx: triggerCompGetCtx,
+            __handleFetch: handleFetch,
           } as any)
         : null;
     };
