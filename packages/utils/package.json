@@ -2,7 +2,7 @@
   "name": "@knxcloud/lowcode-utils",
   "main": "./lib/index.js",
   "module": "./es/index.js",
-  "version": "1.4.1",
+  "version": "1.4.7",
   "files": [
     "es",
     "lib"
@@ -12,13 +12,13 @@
     "lint:type": "tsc -p ./tsconfig.json --noEmit",
     "prepublishOnly": "pnpm build"
   },
-  "homepage": "https://unpkg.com/@knxcloud/lowcode-utils@1.4.1/build/index.html",
+  "homepage": "https://unpkg.com/@knxcloud/lowcode-utils@1.4.7/build/index.html",
   "dependencies": {
-    "@alilc/lowcode-shell": "^1.0.11",
-    "@alilc/lowcode-types": "^1.0.11"
+    "@alilc/lowcode-shell": "^1.0.13",
+    "@alilc/lowcode-types": "^1.0.13"
   },
   "devDependencies": {
-    "vue": "^3.2.37"
+    "vue": "^3.2.38"
   },
   "peerDependencies": {
     "vue": ">=3.2"

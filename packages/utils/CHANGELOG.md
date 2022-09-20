@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.6...v1.4.7) (2022-08-30)
+
+**Note:** Version bump only for package @knxcloud/lowcode-utils
+
+
+
+
+
+## [1.4.6](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.5...v1.4.6) (2022-08-10)
+
+**Note:** Version bump only for package @knxcloud/lowcode-utils
+
+
+
+
+
+## [1.4.5](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.4...v1.4.5) (2022-07-29)
+
+**Note:** Version bump only for package @knxcloud/lowcode-utils
+
+
+
+
+
+## [1.4.3](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.2...v1.4.3) (2022-07-21)
+
+**Note:** Version bump only for package @knxcloud/lowcode-utils
+
+
+
+
+
 ## [1.4.1](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.0...v1.4.1) (2022-07-12)
 
 

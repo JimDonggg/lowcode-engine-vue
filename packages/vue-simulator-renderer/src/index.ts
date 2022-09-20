@@ -1,4 +1,5 @@
 import simulator from './simulator';
+import './index.less';
 
 const win = window as any;
 
@@ -15,10 +16,6 @@ win.addEventListener('beforeunload', () => {
 export default simulator;
 export * from '@knxcloud/lowcode-vue-renderer';
 export {
-  useLeaf,
-  useRenderer,
-  useRootScope,
-  useRendererContext,
   config as vueRendererConfig,
   default as VueRenderer,
 } from '@knxcloud/lowcode-vue-renderer';

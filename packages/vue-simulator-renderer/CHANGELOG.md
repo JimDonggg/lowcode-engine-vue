@@ -3,6 +3,52 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.7](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.6...v1.4.7) (2022-08-30)
+
+
+### Features
+
+* **vue-simulator-renderer:** slot 组件自动撑满父级容器高度 ([87dd933](https://github.com/KNXCloud/lowcode-engine-vue/commit/87dd933f1144481403cff0ecc1b96a470ba0a4de))
+
+
+
+
+
+## [1.4.6](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.5...v1.4.6) (2022-08-10)
+
+
+### Bug Fixes
+
+* **vue-simulator-renderer:** 修复移动画布组件位置导致的渲染错误 ([2fc636d](https://github.com/KNXCloud/lowcode-engine-vue/commit/2fc636d8521ecb15bef23c5c3ee2181c3cad42cd))
+
+
+
+
+
+## [1.4.5](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.4...v1.4.5) (2022-07-29)
+
+**Note:** Version bump only for package @knxcloud/lowcode-vue-simulator-renderer
+
+
+
+
+
+## [1.4.4](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.3...v1.4.4) (2022-07-21)
+
+**Note:** Version bump only for package @knxcloud/lowcode-vue-simulator-renderer
+
+
+
+
+
+## [1.4.3](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.2...v1.4.3) (2022-07-21)
+
+**Note:** Version bump only for package @knxcloud/lowcode-vue-simulator-renderer
+
+
+
+
+
 ## [1.4.2](https://github.com/KNXCloud/lowcode-engine-vue/compare/v1.4.1...v1.4.2) (2022-07-14)
 
 **Note:** Version bump only for package @knxcloud/lowcode-vue-simulator-renderer

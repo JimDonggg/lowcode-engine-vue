@@ -3,7 +3,7 @@
   "main": "./lib/index.js",
   "module": "src/index.ts",
   "unpkg": "./dist/vue-renderer.js",
-  "version": "1.4.2",
+  "version": "1.4.7",
   "files": [
     "es",
     "lib",
@@ -16,16 +16,16 @@
     "lint:type": "tsc -p ./tsconfig.json --noEmit",
     "prepublishOnly": "pnpm build && pnpm build:umd"
   },
-  "homepage": "https://unpkg.com/@knxcloud/lowcode-vue-renderer@1.4.2/build/index.html",
+  "homepage": "https://unpkg.com/@knxcloud/lowcode-vue-renderer@1.4.7/build/index.html",
   "dependencies": {
-    "@alilc/lowcode-types": "^1.0.11",
-    "intl-messageformat": "^10.1.0",
+    "@alilc/lowcode-types": "^1.0.13",
+    "intl-messageformat": "^10.1.4",
     "lodash-es": "^4.17.21"
   },
   "devDependencies": {
-    "@alilc/lowcode-designer": "^1.0.11",
+    "@alilc/lowcode-designer": "^1.0.13",
     "@types/lodash-es": "^4.17.6",
-    "vue": "^3.2.37"
+    "vue": "^3.2.38"
   },
   "publishConfig": {
     "access": "public",
